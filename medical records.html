@@ -1,49 +1,174 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Medical Records</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navajanani | Medical Vault</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: #f4f4f4;
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #000;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 { margin-top: 20px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; }
+
+        /* --- Advanced Feature: Metric Dashboard --- */
+        .health-summary {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            background: #fff;
+            padding: 15px;
+            border-radius: 12px;
+            border: 2px solid #000;
+            text-align: center;
+            box-shadow: 4px 4px 0px #000;
+        }
+
+        .metric-card h3 { margin: 0; font-size: 12px; text-transform: uppercase; color: #666; }
+        .metric-card p { margin: 5px 0 0; font-size: 20px; font-weight: bold; }
+
+        /* --- Advanced Feature: Record Vault --- */
+        .vault-section {
+            width: 100%;
+            background: #fff;
+            border-radius: 16px;
+            padding: 20px;
+            box-sizing: border-box;
+            border: 2px solid #000;
+        }
+
+        .record-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .record-item:last-child { border-bottom: none; }
+
+        .record-info h4 { margin: 0; font-size: 16px; }
+        .record-info span { font-size: 12px; color: #666; }
+
+        .btn-view {
+            padding: 8px 15px;
+            background: #000;
+            color: #fff;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* --- Advanced Feature: Upload & Emergency --- */
+        .actions {
+            width: 100%;
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn-action {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #000;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .upload-btn { background: #000; color: #fff; }
+        .emergency-btn { background: #ff0000; color: #fff; border-color: #ff0000; }
+        .back-btn { background: transparent; color: #000; text-decoration: none; margin-top: 10px; display: block; text-align: center;}
+
+    </style>
 </head>
 <body>
 
-<h1>My Medical Records</h1>
+    <div class="container">
+        <h1>Medical Vault</h1>
+        <p>Your secure digital health timeline</p>
 
-<textarea id="record" rows="6" cols="40"
-placeholder="Enter medical notes..."></textarea><br><br>
+        <div class="health-summary">
+            <div class="metric-card">
+                <h3>Blood Pressure</h3>
+                <p>110/70</p>
+            </div>
+            <div class="metric-card">
+                <h3>Hemoglobin</h3>
+                <p>12.5 g/dL</p>
+            </div>
+            <div class="metric-card">
+                <h3>Week of Pregnancy</h3>
+                <p>24th Week</p>
+            </div>
+            <div class="metric-card">
+                <h3>Next Scan</h3>
+                <p>In 12 Days</p>
+            </div>
+        </div>
 
-<button onclick="saveRecord()">Save Record</button>
+        <div class="vault-section">
+            <div class="record-item">
+                <div class="record-info">
+                    <h4>Ultrasound Report - Q2</h4>
+                    <span>Uploaded: Feb 10, 2026</span>
+                </div>
+                <a href="#" class="btn-view">VIEW PDF</a>
+            </div>
+            <div class="record-item">
+                <div class="record-info">
+                    <h4>Blood Work Analysis</h4>
+                    <span>Uploaded: Jan 22, 2026</span>
+                </div>
+                <a href="#" class="btn-view">VIEW PDF</a>
+            </div>
+            <div class="record-item">
+                <div class="record-info">
+                    <h4>Vaccination Card</h4>
+                    <span>Updated: Jan 05, 2026</span>
+                </div>
+                <a href="#" class="btn-view">VIEW PDF</a>
+            </div>
+        </div>
 
-<h3>Saved Records</h3>
-<ul id="recordList"></ul>
+        <div class="actions">
+            <button class="btn-action upload-btn" onclick="document.getElementById('fileInput').click()">+ UPLOAD NEW RECORD</button>
+            <input type="file" id="fileInput" style="display:none">
+            
+            <button class="btn-action emergency-btn" onclick="generateSOS()">SHARE EMERGENCY RECORDS</button>
+            
+            <a href="medical.html" class="back-btn">← BACK TO MEDICAL CENTER</a>
+        </div>
+    </div>
 
-<br>
-<a href="medical.html"><button>Back</button></a>
-
-<script>
-function saveRecord() {
-    let text = document.getElementById("record").value;
-
-    let records = JSON.parse(localStorage.getItem("records")) || [];
-    records.push(text);
-    localStorage.setItem("records", JSON.stringify(records));
-
-    display();
-}
-
-function display() {
-    let records = JSON.parse(localStorage.getItem("records")) || [];
-    let list = document.getElementById("recordList");
-    list.innerHTML = "";
-
-    records.forEach(function(item){
-        let li = document.createElement("li");
-        li.textContent = item;
-        list.appendChild(li);
-    });
-}
-
-display();
-</script>
-
+    <script>
+        function generateSOS() {
+            alert("Generating a temporary QR code for emergency medical access. This will share your records with the hospital for 1 hour.");
+        }
+    </script>
 </body>
 </html>

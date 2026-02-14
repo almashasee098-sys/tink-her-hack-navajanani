@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navajanani | Book Appointment</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+            min-height: 100vh; 
+            margin: 0;
+            padding: 40px 0;
+            background-color: #f4f4f4; 
+            font-family: 'Segoe UI', sans-serif;
+            color: #000;
+        }
+
+        .booking-card {
+            width: 90%;
+            max-width: 450px;
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            border: 2px solid #000;
+            box-shadow: 8px 8px 0px #000;
+        }
+
+        h1 { text-align: center; font-weight: 800; margin-bottom: 5px; }
+        p.desc { text-align: center; font-size: 14px; color: #666; margin-bottom: 25px; }
+
+        .form-group {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        label { font-weight: bold; font-size: 13px; text-transform: uppercase; }
+
+        input, select {
+            padding: 12px;
+            border: 2px solid #000;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: #000;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.2s;
+        }
+
+        button:hover { background: #333; transform: translate(-2px, -2px); box-shadow: 4px 4px 0px #000; }
+
+        /* --- Advanced History Section --- */
+        .history-container {
+            width: 90%;
+            max-width: 450px;
+            margin-top: 30px;
+        }
+
+        h3 { border-bottom: 2px solid #000; padding-bottom: 5px; }
+
+        #history {
+            list-style: none;
+            padding: 0;
+        }
+
+        .appointment-tile {
+            background: #fff;
+            padding: 15px;
+            border: 1px solid #000;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .status-badge {
+            font-size: 10px;
+            background: #e0e0e0;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .back-link {
+            margin-top: 20px;
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="booking-card">
+        <h1>Book Visit</h1>
+        <p class="desc">Schedule your prenatal or postnatal checkup</p>
+
+        <div class="form-group">
+            <label>Patient Name</label>
+            <input type="text" id="name" placeholder="Enter full name">
+        </div>
+
+        <div class="form-group">
+            <label>Consultant</label>
+            <select id="doctor">
+                <option value="Dr. Sharma (OB-GYN)">Dr. Sharma (OB-GYN)</option>
+                <option value="Dr. Patel (Pediatrician)">Dr. Patel (Pediatrician)</option>
+                <option value="Dr. Khan (Nutritionist)">Dr. Khan (Nutritionist)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Appointment Date</label>
+            <input type="date" id="date">
+        </div>
+
+        <div class="form-group">
+            <label>Preferred Slot</label>
+            <select id="slot">
+                <option>Morning (10:00 AM - 12:00 PM)</option>
+                <option>Afternoon (02:00 PM - 04:00 PM)</option>
+                <option>Evening (06:00 PM - 08:00 PM)</option>
+            </select>
+        </div>
+
+        <button onclick="book()">Confirm Appointment</button>
+    </div>
+
+    <div class="history-container">
+        <h3>Booking History</h3>
+        <ul id="history"></ul>
+    </div>
+
+    <a href="medical.html" class="back-link">← Back to Medical Center</a>
+
+    <script>
+        function book() {
+            let name = document.getElementById("name").value;
+            let date = document.getElementById("date").value;
+            let doctor = document.getElementById("doctor").value;
+            let slot = document.getElementById("slot").value;
+
+            if(name === "" || date === "") {
+                alert("Please fill in all details.");
+                return;
+            }
+
+            let bookings = JSON.parse(localStorage.getItem("appointments")) || [];
+            
+            // Storing as an object for better data handling
+            let newBooking = {
+                name: name,
+                doctor: doctor,
+                date: date,
+                slot: slot,
+                status: "Confirmed"
+            };
+
+            bookings.push(newBooking);
+            localStorage.setItem("appointments", JSON.stringify(bookings));
+            
+            // Clear inputs
+            document.getElementById("name").value = "";
+            
+            display();
+        }
+
+        function display() {
+            let bookings = JSON.parse(localStorage.getItem("appointments")) || [];
+            let list = document.getElementById("history");
+            list.innerHTML = "";
+
+            bookings.reverse().forEach(function(item, index){
+                let li = document.createElement("li");
+                li.className = "appointment-tile";
+                li.innerHTML = `
+                    <div>
+                        <strong>${item.doctor}</strong><br>
+                        <small>${item.date} | ${item.slot}</small>
+                    </div>
+                    <span class="status-badge">${item.status}</span>
+                `;
+                list.appendChild(li);
+            });
+        }
+
+        display();
+    </script>
+
+</body>
+</html>

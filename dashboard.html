@@ -1,48 +1,183 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Dashboard - Navajanani</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Navajanani</title>
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            /* Dusty Mint Palette */
+            --dusty-mint: #94af9f;    /* The primary Dusty Mint */
+            --mint-whisper: #dbf1e3;  /* Lighter highlight */
+            --deep-teal: #2c3e34;     /* Contrast for bold text */
+            --glass-bg: rgba(255, 255, 255, 0.25);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Quicksand', sans-serif;
+            /* Gradient background using Dusty Mint tones */
+            background: linear-gradient(135deg, #94af9f 0%, #b2c9bd 50%, #c8d9ce 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--deep-teal);
+        }
+
+        .dashboard-container {
+            width: 90%;
+            max-width: 420px;
+            text-align: center;
+            padding: 40px 30px;
+            /* Glassmorphism Effect */
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* --- Animated Bold Heading --- */
+        .main-heading {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 26px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 8px;
+            color: var(--deep-teal);
+            animation: tracking-in-expand 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+        }
+
+        .user-greet {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 35px;
+            color: var(--deep-teal);
+            opacity: 0.85;
+        }
+
+        /* --- Attractive Sub-options --- */
+        .dashboard-options {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .option-card {
+            background: rgba(255, 255, 255, 0.8);
+            color: var(--deep-teal);
+            border: none;
+            padding: 18px 25px;
+            font-size: 16px;
+            font-weight: 700; /* Bold sub-font */
+            border-radius: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: slideInUp 0.6s forwards;
+        }
+
+        .option-card:hover {
+            background: var(--pure-white);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            background: #ffffff;
+        }
+
+        .option-card span.icon {
+            font-size: 20px;
+            opacity: 0.9;
+        }
+
+        .logout-btn {
+            background: rgba(44, 62, 52, 0.1);
+            border: 1px solid var(--deep-teal);
+            color: var(--deep-teal);
+            margin-top: 10px;
+        }
+
+        .logout-btn:hover {
+            background: var(--deep-teal);
+            color: #fff;
+        }
+
+        /* --- Animations --- */
+        @keyframes tracking-in-expand {
+            0% { letter-spacing: -0.5em; opacity: 0; }
+            40% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Staggered Delay */
+        .option-card:nth-child(1) { animation-delay: 0.3s; }
+        .option-card:nth-child(2) { animation-delay: 0.4s; }
+        .option-card:nth-child(3) { animation-delay: 0.5s; }
+        .option-card:nth-child(4) { animation-delay: 0.6s; }
+        .option-card:nth-child(5) { animation-delay: 0.7s; }
+
+    </style>
 </head>
 
 <body>
 
 <div class="dashboard-container">
 
-    <h1 class="main-heading">WELCOME TO NAVAJANANI</h1>
+    <h1 class="main-heading">Welcome to Navajanani</h1>
+    <h3 class="user-greet">A peaceful journey for <span id="userNameDisplay">Mama</span></h3>
 
-    <h3 class="user-greet">Hello, <span id="userNameDisplay"></span> 👋</h3>
-
-    <!-- Sub Options -->
     <div class="dashboard-options">
+        <button class="option-card" onclick="location.href='mentalhealth.html'">
+            Mental Well-being <span class="icon">🧠</span>
+        </button>
 
-        <button href="./mentalhealth.html" class="option-card" onclick="location.href='mentalhealth.html'">🧠 Mental Health</button>
+        <button class="option-card" onclick="location.href='exercise.html'">
+            Exercise Guide <span class="icon">🧘‍♀️</span>
+        </button>
 
-        <button href="./exercise.html" class="option-card" onclick="location.href='exercise.html'">🏋 Exercise Guide</button>
+        <button class="option-card" onclick="location.href='medicalhelp.html'">
+            Medical Support <span class="icon">🏥</span>
+        </button>
 
-        <button href="./medicalhelp.html" class="option-card" onclick="location.href='medicalhelp.html'">🏥 Medical Help</button>
+        <button class="option-card" onclick="location.href='food.html'">
+            Nutrition & Diet <span class="icon">🥗</span>
+        </button>
 
-        <button href="./food.html" class="option-card" onclick="location.href='food.html'">📊 Food</button>
-
-        <button href="option-card logout-btn" onclick="logout()">🚪 Logout</button>
-
+        <button class="option-card logout-btn" onclick="logout()">
+            Sign Out <span class="icon">🚪</span>
+        </button>
     </div>
 
 </div>
 
 <script>
-document.getElementById("userNameDisplay").innerText =
-    localStorage.getItem("userName");
+    const name = localStorage.getItem("userName");
+    document.getElementById("userNameDisplay").innerText = name ? name : "Mama";
 
-function logout() {
-    window.location.href = "index.html";
-}
+    function logout() {
+        window.location.href = "index.html";
+    }
 </script>
 
 </body>
