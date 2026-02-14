@@ -16,13 +16,15 @@
 [https://almashasee098-sys.github.io/tink-her-hack-navajanani/]
 
 ### Project Description
-[2-3 lines about what your project does]
+[]
 
 ### The Problem statement
 ["Beyond Checkups: Solving the maternal health crisis by putting smart diagnostics, mental health support, and emergency resources into the palm of every mother's hand."]
 
 ### The Solution
-[How are you solving it?]
+[Navajanani is designed as a comprehensive digital companion for maternal and postnatal care. It solves the problem of "information gap" and "care fragmentation" by centralizing medical records, doctor consultations, and health tracking into a single, user-friendly interface.
+
+The primary goal is to empower expectant and new mothers (especially in regions with limited access to specialized clinics) to take control of their health through technology.]
 
 ---
 
@@ -46,10 +48,10 @@
 ## Features
 
 List the key features of your project:
-- Feature 1: [Description]
-- Feature 2: [Description]
-- Feature 3: [Description]
-- Feature 4: [Description]
+- Feature 1: [Medical Vault]
+- Feature 2: [Teleconsultation System]
+- Feature 3: [Appointment Scheduler]
+- Feature 4: [Lightweight Architecture and Zero-Database Persistence]
 
 ---
 
@@ -93,7 +95,35 @@ List the key features of your project:
 
 **Application Workflow:**
 
-![Workflow](docs/workflow.png)
+![Workflow](docs/workflow.png![20260213_194627 (1)](https://github.com/user-attachments/assets/0690031d-381b-4b7f-8a73-0a2a861ddbba)
+)1. The Welcome & Onboarding
+Start Your Journey: Begin your personalized experience with a warm welcome.
+
+Secure Access: Quick login and registration to keep your health data private.
+
+Tailored for You: Set up your unique profile to get care that fits your needs.
+
+2. The Command Center
+Home Hub: Your central dashboard to navigate every aspect of your wellness.
+
+3. Holistic Wellness Modules
+Mind Matters: Track your mood and find daily inspiration with the Mental Health suite.
+
+Fuel Your Body: Stay nourished and hydrated with custom meal and water plans.
+
+Rest & Recharge: Log your rest and dive deep into your sleep patterns.
+
+Active Mama: Follow expert workout tips and watch your physical progress grow.
+
+4. Medical & Emergency Support
+Expert Care: Instantly find doctor details and local hospital information.
+
+Safety First: One-tap access to emergency calls and critical support.
+
+5. Results & Reminders
+Data Driven: View comprehensive progress reports to see how far you've come.
+
+Stay on Track: Timely notifications to ensure you never miss a health milestone.
 *Add caption explaining your workflow*
 
 ---
@@ -114,7 +144,7 @@ List the key features of your project:
 
 If you used AI tools during development, document them here for transparency:
 
-**Tool Used:** [e.g., GitHub Copilot, v0.dev, Cursor, ChatGPT, Claude]
+**Tool Used:** [e.g., GitHub Copilot, v0.dev, Cursor, ChatGPT]
 
 **Purpose:** [What you used it for]
 - Example: "Generated boilerplate React components"
