@@ -134,12 +134,11 @@ Stay on Track: Timely notifications to ensure you never miss a health milestone.
 ## Project Demo
 
 ### Video
-[Add your demo video link here - YouTube, Google Drive, etc.]
+[https://drive.google.com/file/d/1DMST3FvYxMqoAIPiFIpY1AhTjQBBjj3U/view?usp=gmail]
+Navajanani isn't just a dashboard; it’s a digital sanctuary for mothers. We identified that maternal care is often fragmented and overwhelming. Our solution centralizes mental, physical, and medical support into a calm, accessible interface designed to empower mothers at every step."
 
-*Explain what the video demonstrates - key features, user flow, technical highlights*
 
-### Additional Demos
-[Add any extra demo materials/links - Live site, APK download, online demo, etc.]
+
 
 ---
 
