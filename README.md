@@ -9,8 +9,8 @@
 ### Team Name: 
 
 ### Team Members
-- Member 1: [Name] - [College]
-- Member 2: [Name] - [College]
+- Member 1: [ANUGRAHA RAJEEV] - [LBS INSTITUTE OF TECHNOLOGY FOR WOMEN]
+- Member 2: [ALMAS RAHIM] - [LBS INSTITUTE OF TECHNOLOGY FOR WOMEN]
 
 ### Hosted Project Link
 [mention your project hosted link here]
