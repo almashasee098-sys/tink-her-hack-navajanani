@@ -38,10 +38,7 @@ The primary goal is to empower expectant and new mothers (especially in regions 
 - Libraries used: [LocalStorage API]
 - Tools used: [e.g., VS Code, Git, Github]
 
-**For Hardware:**
-- Main components: [List main components]
-- Specifications: [Technical specifications]
-- Tools required: [List tools needed]
+
 
 ---
 
@@ -52,6 +49,7 @@ List the key features of your project:
 - Feature 2: [Teleconsultation System]
 - Feature 3: [Appointment Scheduler]
 - Feature 4: [Lightweight Architecture and Zero-Database Persistence]
+- Feature 5:[Authentication System]
 
 ---
 
