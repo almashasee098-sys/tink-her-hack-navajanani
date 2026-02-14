@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Progress Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Progress Tracker</h1>
+
+<p>Enter today's workout duration (minutes):</p>
+
+<input type="number" id="minutes" placeholder="Enter minutes">
+<button onclick="saveProgress()">Save</button>
+
+<h3>Workout History:</h3>
+<ul id="history"></ul>
+
+<br><br>
+<a href="exercise.html"><button>Back</button></a>
+
+<script>
+function saveProgress() {
+    let minutes = document.getElementById("minutes").value;
+
+    if (minutes === "") {
+        alert("Please enter workout time");
+        return;
+    }
+
+    let history = JSON.parse(localStorage.getItem("workoutHistory")) || [];
+    history.push(minutes + " minutes");
+
+    localStorage.setItem("workoutHistory", JSON.stringify(history));
+
+    displayHistory();
+}
+
+function displayHistory() {
+    let history = JSON.parse(localStorage.getItem("workoutHistory")) || [];
+    let list = document.getElementById("history");
+    list.innerHTML = "";
+
+    history.forEach(function(item) {
+        let li = document.createElement("li");
+        li.textContent = item;
+        list.appendChild(li);
+    });
+}
+
+displayHistory();
+</script>
+
+</body>
+</html>

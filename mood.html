@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mood Tracker - Navajanani</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="mood-container">
+
+    <h1 class="mood-heading">MOOD TRACKER</h1>
+    <p class="mood-subtitle">Track your emotions daily 💚</p>
+
+    <!-- Mood Selection -->
+    <div class="mood-card">
+        <h2>Select Your Mood</h2>
+
+        <div class="mood-options">
+            <span onclick="selectMood('Happy')">😊</span>
+            <span onclick="selectMood('Sad')">😢</span>
+            <span onclick="selectMood('Angry')">😠</span>
+            <span onclick="selectMood('Calm')">😌</span>
+            <span onclick="selectMood('Excited')">🤩</span>
+        </div>
+
+        <input type="range" min="1" max="10" value="5" id="moodLevel">
+        <p>Intensity: <span id="levelValue">5</span>/10</p>
+
+        <textarea id="moodNote" placeholder="Write how you feel today..."></textarea>
+        <button onclick="saveMood()">Save Mood</button>
+    </div>
+
+    <!-- Mood History -->
+    <div class="mood-card">
+        <h2>📊 Mood History</h2>
+        <div class="mood-progress">
+            <div id="moodBar"></div>
+        </div>
+        <ul id="moodList"></ul>
+    </div>
+
+    <button class="mood-back-btn" onclick="location.href='dashboard.html'">
+        ← Back to Dashboard
+    </button>
+
+</div>
+
+<script>
+
+let selectedMood = "";
+
+// Update slider value
+document.getElementById("moodLevel").oninput = function() {
+    document.getElementById("levelValue").innerText = this.value;
+};
+
+function selectMood(mood) {
+    selectedMood = mood;
+}
+
+// Load saved moods
+window.onload = function() {
+    const moods = JSON.parse(localStorage.getItem("moods")) || [];
+    moods.forEach(entry => createMoodItem(entry));
+    updateMoodBar();
+};
+
+function saveMood() {
+    const level = document.getElementById("moodLevel").value;
+    const note = document.getElementById("moodNote").value;
+
+    if(selectedMood === "") {
+        alert("Please select a mood!");
+        return;
+    }
+
+    const moodEntry = {
+        mood: selectedMood,
+        level: level,
+        note: note,
+        date: new Date().toLocaleDateString()
+    };
+
+    const moods = JSON.parse(localStorage.getItem("moods")) || [];
+    moods.push(moodEntry);
+    localStorage.setItem("moods", JSON.stringify(moods));
+
+    createMoodItem(moodEntry);
+    updateMoodBar();
+
+    document.getElementById("moodNote").value = "";
+    selectedMood = "";
+}
+
+function createMoodItem(entry) {
+    const li = document.createElement("li");
+    li.classList.add("fade-item");
+    li.innerHTML = `${entry.date} - ${entry.mood} (${entry.level}/10) <br> <small>${entry.note}</small>`;
+    document.getElementById("moodList").appendChild(li);
+}
+
+function updateMoodBar() {
+    const total = document.querySelectorAll("#moodList li").length;
+    const percent = Math.min(total * 10, 100);
+    document.getElementById("moodBar").style.width = percent + "%";
+}
+
+</script>
+
+</body>
+</html>

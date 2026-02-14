@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nutrition & Food - Navajanani</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="food-container">
+
+    <h1 class="food-heading">NUTRITION & FOOD</h1>
+    <p class="food-subtitle">Plan Smart • Eat Healthy • Stay Hydrated</p>
+
+    <!-- Meal Planner -->
+    <div class="food-card">
+        <h2>🥗 Meal Planner</h2>
+
+        <input type="text" id="mealInput" placeholder="Enter your meal">
+        <button onclick="addMeal()">Add Meal</button>
+
+        <ul id="mealList"></ul>
+    </div>
+
+    <!-- Hydration Tracker -->
+    <div class="food-card">
+        <h2>💧 Hydration Tracker</h2>
+
+        <p>Glasses of Water Today:</p>
+        <h3 id="waterCount">0</h3>
+
+        <button onclick="addWater()">+ Add Glass</button>
+        <button onclick="resetWater()">Reset</button>
+
+        <div class="water-progress">
+            <div id="waterBar"></div>
+        </div>
+    </div>
+
+    <button class="food-back-btn" onclick="location.href='dashboard.html'">
+        ← Back to Dashboard
+    </button>
+
+</div>
+
+<script>
+
+// Load Saved Data
+window.onload = function() {
+    const meals = JSON.parse(localStorage.getItem("meals")) || [];
+    meals.forEach(meal => createMealItem(meal));
+
+    const water = localStorage.getItem("waterCount") || 0;
+    document.getElementById("waterCount").innerText = water;
+    updateWaterBar();
+};
+
+// Add Meal
+function addMeal() {
+    const mealInput = document.getElementById("mealInput").value;
+
+    if(mealInput === "") {
+        alert("Enter a meal");
+        return;
+    }
+
+    const meals = JSON.parse(localStorage.getItem("meals")) || [];
+    meals.push(mealInput);
+    localStorage.setItem("meals", JSON.stringify(meals));
+
+    createMealItem(mealInput);
+    document.getElementById("mealInput").value = "";
+}
+
+function createMealItem(meal) {
+    const li = document.createElement("li");
+    li.innerHTML = `${meal} <button onclick="deleteMeal(this)">❌</button>`;
+    li.classList.add("fade-item");
+    document.getElementById("mealList").appendChild(li);
+}
+
+// Delete Meal
+function deleteMeal(btn) {
+    const li = btn.parentElement;
+    li.remove();
+
+    const updatedMeals = [];
+    document.querySelectorAll("#mealList li").forEach(li => {
+        updatedMeals.push(li.firstChild.textContent.trim());
+    });
+
+    localStorage.setItem("meals", JSON.stringify(updatedMeals));
+}
+
+// Hydration Tracker
+function addWater() {
+    let count = parseInt(document.getElementById("waterCount").innerText);
+    count++;
+    document.getElementById("waterCount").innerText = count;
+    localStorage.setItem("waterCount", count);
+    updateWaterBar();
+}
+
+function resetWater() {
+    document.getElementById("waterCount").innerText = 0;
+    localStorage.setItem("waterCount", 0);
+    updateWaterBar();
+}
+
+function updateWaterBar() {
+    let count = parseInt(document.getElementById("waterCount").innerText);
+    let percent = Math.min(count * 10, 100); // 10 glasses = 100%
+    document.getElementById("waterBar").style.width = percent + "%";
+}
+
+</script>
+
+</body>
+</html>

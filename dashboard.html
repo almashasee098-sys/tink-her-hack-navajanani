@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard - Navajanani</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <h1 class="main-heading">WELCOME TO NAVAJANANI</h1>
+
+    <h3 class="user-greet">Hello, <span id="userNameDisplay"></span> 👋</h3>
+
+    <!-- Sub Options -->
+    <div class="dashboard-options">
+
+        <button href="./mentalhealth.html" class="option-card" onclick="location.href='mentalhealth.html'">🧠 Mental Health</button>
+
+        <button href="./exercise.html" class="option-card" onclick="location.href='exercise.html'">🏋 Exercise Guide</button>
+
+        <button href="./medicalhelp.html" class="option-card" onclick="location.href='medicalhelp.html'">🏥 Medical Help</button>
+
+        <button href="./food.html" class="option-card" onclick="location.href='food.html'">📊 Food</button>
+
+        <button href="option-card logout-btn" onclick="logout()">🚪 Logout</button>
+
+    </div>
+
+</div>
+
+<script>
+document.getElementById("userNameDisplay").innerText =
+    localStorage.getItem("userName");
+
+function logout() {
+    window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>

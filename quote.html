@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Daily Motivational Quotes - Navajanani</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="quote-container">
+
+    <h1 class="quote-heading">DAILY MOTIVATION</h1>
+    <p class="quote-subtitle">Fuel your mind with positivity 💚</p>
+
+    <div class="quote-card">
+
+        <select id="categorySelect">
+            <option value="all">All Categories</option>
+            <option value="success">Success</option>
+            <option value="health">Health</option>
+            <option value="mindset">Mindset</option>
+            <option value="confidence">Confidence</option>
+        </select>
+
+        <p id="quoteText" class="fade-quote">Click below to get inspired!</p>
+
+        <button onclick="generateQuote()">New Quote</button>
+        <button onclick="saveFavorite()">❤️ Save</button>
+
+    </div>
+
+    <div class="quote-card">
+        <h3>⭐ Favorite Quotes</h3>
+        <ul id="favoriteList"></ul>
+    </div>
+
+    <button class="quote-back-btn" onclick="location.href='dashboard.html'">
+        ← Back to Dashboard
+    </button>
+
+</div>
+
+<script>
+
+const quotes = [
+    {text: "Success starts with self-belief.", category: "success"},
+    {text: "Push yourself, because no one else will.", category: "success"},
+    {text: "Health is the greatest wealth.", category: "health"},
+    {text: "Take care of your body. It's your only home.", category: "health"},
+    {text: "Your mindset determines your future.", category: "mindset"},
+    {text: "Stay positive, work hard, make it happen.", category: "mindset"},
+    {text: "Believe in yourself and all that you are.", category: "confidence"},
+    {text: "Confidence is silent. Insecurities are loud.", category: "confidence"}
+];
+
+let currentQuote = "";
+
+window.onload = function() {
+    const saved = JSON.parse(localStorage.getItem("favorites")) || [];
+    saved.forEach(addFavoriteToList);
+};
+
+function generateQuote() {
+    const category = document.getElementById("categorySelect").value;
+
+    const filtered = category === "all"
+        ? quotes
+        : quotes.filter(q => q.category === category);
+
+    const random = filtered[Math.floor(Math.random() * filtered.length)];
+    currentQuote = random.text;
+
+    const quoteText = document.getElementById("quoteText");
+    quoteText.classList.remove("fade-quote");
+    void quoteText.offsetWidth;
+    quoteText.innerText = `"${random.text}"`;
+    quoteText.classList.add("fade-quote");
+}
+
+function saveFavorite() {
+    if(currentQuote === "") return;
+
+    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+    if(!favorites.includes(currentQuote)) {
+        favorites.push(currentQuote);
+        localStorage.setItem("favorites", JSON.stringify(favorites));
+        addFavoriteToList(currentQuote);
+    }
+}
+
+function addFavoriteToList(quote) {
+    const li = document.createElement("li");
+    li.textContent = quote;
+    li.classList.add("fade-item");
+    document.getElementById("favoriteList").appendChild(li);
+}
+
+</script>
+
+</body>
+</html>

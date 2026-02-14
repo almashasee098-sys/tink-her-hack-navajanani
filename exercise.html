@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exercise Guide - Navajanani</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="exercise-container">
+
+    <h1 class="exercise-heading">EXERCISE GUIDE</h1>
+    <p class="exercise-subtitle">Build Strength • Track Progress • Stay Fit</p>
+
+    <!-- Workout Tips -->
+    <div class="exercise-card">
+        <h2>🏋 Workout Tips</h2>
+        <ul>
+            <li>✔ Warm up properly</li>
+            <li>✔ Stay hydrated</li>
+            <li>✔ Maintain posture</li>
+            <li>✔ Rest & recover</li>
+        </ul>
+    </div>
+
+    <!-- Progress Tracker -->
+    <div class="exercise-card">
+        <h2>📊 Progress Tracker</h2>
+
+        <input type="text" id="exerciseName" placeholder="Exercise Name">
+        <input type="number" id="exerciseCount" placeholder="Reps / Minutes">
+        <button onclick="addProgress()">Add</button>
+
+        <div class="progress-bar-container">
+            <div id="progressBar"></div>
+        </div>
+
+        <ul id="progressList"></ul>
+    </div>
+
+    <!-- BMI Calculator -->
+    <div class="exercise-card">
+        <h2>⚖ BMI Calculator</h2>
+        <input type="number" id="height" placeholder="Height (cm)">
+        <input type="number" id="weight" placeholder="Weight (kg)">
+        <button onclick="calculateBMI()">Calculate</button>
+        <p id="bmiResult"></p>
+    </div>
+
+    <!-- Workout Timer -->
+    <div class="exercise-card">
+        <h2>⏱ Workout Timer</h2>
+        <h3 id="timer">00:00</h3>
+        <button onclick="startTimer()">Start</button>
+        <button onclick="pauseTimer()">Pause</button>
+        <button onclick="resetTimer()">Reset</button>
+    </div>
+
+    <button class="exercise-back-btn" onclick="location.href='dashboard.html'">
+        ← Back to Dashboard
+    </button>
+
+</div>
+
+<script>
+
+// Load Saved Progress
+window.onload = function() {
+    const saved = JSON.parse(localStorage.getItem("progressData")) || [];
+    saved.forEach(item => createListItem(item.name, item.count));
+    updateProgressBar();
+};
+
+// Add Progress
+function addProgress() {
+    const name = document.getElementById("exerciseName").value;
+    const count = document.getElementById("exerciseCount").value;
+
+    if(name === "" || count === "") {
+        alert("Fill all fields");
+        return;
+    }
+
+    const saved = JSON.parse(localStorage.getItem("progressData")) || [];
+    saved.push({name, count});
+    localStorage.setItem("progressData", JSON.stringify(saved));
+
+    createListItem(name, count);
+    updateProgressBar();
+
+    document.getElementById("exerciseName").value = "";
+    document.getElementById("exerciseCount").value = "";
+}
+
+// Create List Item
+function createListItem(name, count) {
+    const li = document.createElement("li");
+    li.innerHTML = `${name} - ${count} <button onclick="deleteItem(this)">❌</button>`;
+    li.classList.add("fade-item");
+    document.getElementById("progressList").

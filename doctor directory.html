@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Doctor Directory</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #e6f2e6; /* light green background */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px;
+    }
+    h1 {
+      color: #006400; /* dark green header */
+      margin-bottom: 20px;
+    }
+    input[type="text"] {
+      padding: 12px;
+      width: 300px;
+      border-radius: 8px;
+      border: 1px solid #006400;
+      margin-bottom: 20px;
+      font-size: 16px;
+      text-align: center;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      width: 100%;
+      max-width: 500px;
+    }
+    li {
+      background: #a8d5a2; /* medium green card */
+      margin-bottom: 10px;
+      padding: 15px 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      cursor: pointer;
+      position: relative;
+      text-align: center;
+      color: #004d00; /* dark green text */
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    li:hover {
+      background: #90c290; /* slightly darker on hover */
+    }
+    .sub-options {
+      display: none;
+      margin-top: 10px;
+      text-align: left;
+      background: #d0f0d0; /* light green for dropdown */
+      padding: 10px;
+      border-radius: 8px;
+      color: #004d00;
+    }
+    .sub-options p {
+      margin: 5px 0;
+    }
+    .sub-options button {
+      padding: 8px 12px;
+      border: none;
+      background: #28a745; /* green button */
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+    .sub-options button:hover {
+      background: #218838;
+    }
+    .back-btn {
+      margin-top: 20px;
+      padding: 12px 25px;
+      border: none;
+      background: #006400; /* dark green back button */
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .back-btn:hover {
+      background: #004d00;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Doctor Directory</h1>
+
+  <input type="text" id="search" placeholder="Search by specialization..." onkeyup="searchDoctor()">
+
+  <ul id="doctorList">
+    <li onclick="toggleSubOptions(this)">
+      Dr. Sharma - General Physician
+      <div class="sub-options">
+        <p><strong>Phone:</strong> +91-9876543210</p>
+        <p><strong>Email:</strong> sharma@clinic.com</p>
+        <button onclick="contactDoctor('sharma@clinic.com')">Contact</button>
+        <button onclick="bookAppointment('Dr. Sharma')">Book Appointment</button>
+      </div>
+    </li>
+    <li onclick="toggleSubOptions(this)">
+      Dr. Patel - Cardiologist
+      <div class="sub-options">
+        <p><strong>Phone:</strong> +91-9876543211</p>
+        <p><strong>Email:</strong> patel@clinic.com</p>
+        <button onclick="contactDoctor('patel@clinic.com')">Contact</button>
+        <button onclick="bookAppointment('Dr. Patel')">Book Appointment</button>
+      </div>
+    </li>
+    <li onclick="toggleSubOptions(this)">
+      Dr. Khan - Psychologist
+      <div class="sub-options">
+        <p><strong>Phone:</strong> +91-9876543212</p>
+        <p><strong>Email:</strong> khan@clinic.com</p>
+        <button onclick="contactDoctor('khan@clinic.com')">Contact</button>
+        <button onclick="bookAppointment('Dr. Khan')">Book Appointment</button>
+      </div>
+    </li>
+    <li onclick="toggleSubOptions(this)">
+      Dr. Reddy - Orthopedic
+      <div class="sub-options">
+        <p><strong>Phone:</strong> +91-9876543213</p>
+        <p><strong>Email:</strong> reddy@clinic.com</p>
+        <button onclick="contactDoctor('reddy@clinic.com')">Contact</button>
+        <button onclick="bookAppointment('Dr. Reddy')">Book Appointment</button>
+      </div>
+    </li>
+  </ul>
+
+  <button class="back-btn" onclick="goBack()">Back</button>
+
+  <script>
+    // Search function
+    function searchDoctor() {
+      let input = document.getElementById("search").value.toLowerCase();
+      let items = document.getElementById("doctorList").getElementsByTagName("li");
+
+      for (let i = 0; i < items.length; i++) {
+        let text = items[i].textContent.toLowerCase();
+        items[i].style.display = text.includes(input) ? "" : "none";
+      }
+    }
+
+    // Toggle sub-options dropdown
+    function toggleSubOptions(li) {
+      let sub = li.querySelector('.sub-options');
+      if(sub.style.display === "block") {
+        sub.style.display = "none";
+      } else {
+        // close others
+        document.querySelectorAll('.sub-options').forEach(el => el.style.display = 'none');
+        sub.style.display = "block";
+      }
+    }
+
+    // Contact doctor
+    function contactDoctor(email) {
+      alert(`Contact email: ${email}`);
+      event.stopPropagation();
+    }
+
+    // Book appointment
+    function bookAppointment(name) {
+      alert(`Booking appointment with ${name}`);
+      event.stopPropagation();
+    }
+
+    // Back button
+    function goBack() {
+      window.location.href = 'medical.html';
+    }
+  </script>
+
+</body>
+</html>

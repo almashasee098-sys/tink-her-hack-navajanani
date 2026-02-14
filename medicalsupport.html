@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Medical Support - NAVAJANANI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #e6f2e6; /* light green */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            color: #006400; /* dark green */
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* Buttons */
+        .support-btn {
+            width: 300px;
+            padding: 15px;
+            margin: 10px 0;
+            font-size: 18px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            background: #28a745;
+            color: white;
+            transition: 0.3s;
+        }
+
+        .support-btn:hover {
+            background: #218838;
+        }
+
+        /* Contact form */
+        .form-container {
+            background: #d0f0d0;
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            margin-top: 20px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .form-container input, 
+        .form-container textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #006400;
+            font-size: 16px;
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 12px;
+            background: #006400;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background: #004d00;
+        }
+
+        /* FAQ Accordion */
+        .faq {
+            width: 100%;
+            max-width: 500px;
+            margin-top: 30px;
+        }
+
+        .faq-item {
+            background: #a8d5a2;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #004d00;
+        }
+
+        .faq-answer {
+            padding: 15px;
+            display: none;
+            background: #d0f0d0;
+            color: #004d00;
+        }
+
+        /* Back button */
+        .back-btn {
+            margin-top: 30px;
+            padding: 12px 25px;
+            border: none;
+            background: #006400;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .back-btn:hover {
+            background: #004d00;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Medical Support</h1>
+
+<!-- Direct Support Buttons -->
+<a href="tel:108"><button class="support-btn">📞 Call Emergency</button></a>
+<a href="mailto:support@medicalhelp.com"><button class="support-btn">✉ Email Support</button></a>
+<button class="support-btn" onclick="alert('Chat feature coming soon!')">💬 Live Chat</button>
+
+<!-- Contact Form -->
+<div class="form-container">
+    <h2>Request Support</h2>
+    <input type="text" id="name" placeholder="Your Name">
+    <input type="email" id="email" placeholder="Your Email">
+    <textarea id="message" placeholder="Describe your issue..." rows="5"></textarea>
+    <button onclick="submitForm()">Submit</button>
+</div>
+
+<!-- FAQ Section -->
+<div class="faq">
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">How do I book an appointment?</div>
+        <div class="faq-answer">You can book an appointment via the Book Appointment page under Medical Help.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">How do I access my medical records?</div>
+        <div class="faq-answer">You can access your medical records in the Medical Records section.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">Is teleconsultation available?</div>
+        <div class="faq-answer">Yes, teleconsultation is available via the Teleconsultation page.</div>
+    </div>
+</div>
+
+<!-- Back Button -->
+<button class="back-btn" onclick="goBack()">⬅ Back to Medical Help</button>
+
+<script>
+    // Form submission
+    function submitForm() {
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
+
+        if(!name || !email || !message) {
+            alert('Please fill all fields!');
+            return;
+        }
+
+        alert(`Thank you ${name}, your request has been submitted!`);
+        document.getElementById('name').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('message').value = '';
+    }
+
+    // FAQ toggle
+    function toggleFAQ(element) {
+        const answer = element.nextElementSibling;
+        if(answer.style.display === 'block') {
+            answer.style.display = 'none';
+        } else {
+            // close all other answers
+            document.querySelectorAll('.faq-answer').forEach(a => a.style.display = 'none');
+            answer.style.display = 'block';
+        }
+    }
+
+    function goBack() {
+        window.location.href = 'medicalhelp.html';
+    }
+</script>
+
+</body>
+</html>

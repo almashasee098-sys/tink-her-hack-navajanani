@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Medical Records</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>My Medical Records</h1>
+
+<textarea id="record" rows="6" cols="40"
+placeholder="Enter medical notes..."></textarea><br><br>
+
+<button onclick="saveRecord()">Save Record</button>
+
+<h3>Saved Records</h3>
+<ul id="recordList"></ul>
+
+<br>
+<a href="medical.html"><button>Back</button></a>
+
+<script>
+function saveRecord() {
+    let text = document.getElementById("record").value;
+
+    let records = JSON.parse(localStorage.getItem("records")) || [];
+    records.push(text);
+    localStorage.setItem("records", JSON.stringify(records));
+
+    display();
+}
+
+function display() {
+    let records = JSON.parse(localStorage.getItem("records")) || [];
+    let list = document.getElementById("recordList");
+    list.innerHTML = "";
+
+    records.forEach(function(item){
+        let li = document.createElement("li");
+        li.textContent = item;
+        list.appendChild(li);
+    });
+}
+
+display();
+</script>
+
+</body>
+</html>

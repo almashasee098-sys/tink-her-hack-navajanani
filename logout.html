@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced Logout</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f0f2f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.logout-container {
+  background: #fff;
+  padding: 30px 50px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  text-align: center;
+}
+button {
+  padding: 12px 25px;
+  margin: 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+#logoutBtn { background: #ff4d4d; color: white; }
+#logoutAllBtn { background: #007bff; color: white; }
+#logoutBtn:hover { background: #e60000; }
+#logoutAllBtn:hover { background: #0056b3; }
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right:0; bottom:0;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+}
+.modal-content {
+  background: #fff;
+  padding: 20px 30px;
+  border-radius: 10px;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="logout-container">
+  <h2>Logout</h2>
+  <p>Last login: <span id="lastLogin">Loading...</span></p>
+  <button id="logoutBtn">Logout</button>
+  <button id="logoutAllBtn">Logout from all devices</button>
+</div>
+
+<div class="modal" id="confirmModal">
+  <div class="modal-content">
+    <p>Are you sure you want to logout?</p>
+    <button id="confirmYes">Yes</button>
+    <button id="confirmNo">No</button>
+  </div>
+</div>
+
+<script>
+// Fetch last login info
+async function fetchLastLogin() {
+  const res = await fetch('/api/last-login', { credentials: 'include' });
+  const data = await res.json();
+  document.getElementById('lastLogin').innerText = data.lastLogin || 'Unknown';
+}
+fetchLastLogin();
+
+// Show confirmation modal
+const modal = document.getElementById('confirmModal');
+document.getElementById('logoutBtn').onclick = () => modal.style.display = 'flex';
+document.getElementById('confirmNo').onclick = () => modal.style.display = 'none';
+
+// Logout actions
+document.getElementById('confirmYes').onclick = async () => {
+  const res = await fetch('/api/logout', { method: 'POST', credentials: 'include' });
+  const data = await res.json();
+  if(data.success) window.location.href = '/login';
+}
+
+document.getElementById('logoutAllBtn').onclick = async () => {
+  const res = await fetch('/api/logout-all', { method: 'POST', credentials: 'include' });
+  const data = await res.json();
+  if(data.success) window.location.href = '/login';
+}
+</script>
+
+</body>
+</html>

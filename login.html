@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login - Navajanani</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="login-container">
+
+    <h2 class="login-title">Welcome Back</h2>
+
+    <!-- Email -->
+    <div class="input-group">
+        <input type="email" id="loginEmail" required>
+        <label>Email Address</label>
+    </div>
+
+    <!-- Password -->
+    <div class="input-group">
+        <input type="password" id="loginPassword" required>
+        <label>Password</label>
+        <span class="toggle-password" onclick="togglePassword()">👁</span>
+    </div>
+
+    <!-- Remember Me -->
+    <div class="remember-row">
+        <input type="checkbox" id="rememberMe">
+        <label for="rememberMe">Remember Me</label>
+    </div>
+
+    <button onclick="loginUser()">Login</button>
+
+    <p class="extra-text">
+        Don’t have an account?
+        <a href="register.html">Register</a>
+    </p>
+
+</div>
+
+<script>
+
+// Auto-fill remembered email
+window.onload = function() {
+    let rememberedEmail = localStorage.getItem("rememberedEmail");
+    if(rememberedEmail) {
+        document.getElementById("loginEmail").value = rememberedEmail;
+        document.getElementById("rememberMe").checked = true;
+    }
+}
+
+// Toggle Password
+function togglePassword() {
+    let passwordField = document.getElementById("loginPassword");
+    passwordField.type = passwordField.type === "password" ? "text" : "password";
+}
+
+// Login Function
+function loginUser() {
+
+    let email = document.getElementById("loginEmail").value;
+    let password = document.getElementById("loginPassword").value;
+
+    let storedName = localStorage.getItem("userName");
+    let storedEmail = localStorage.getItem("userEmail");
+    let storedPassword = localStorage.getItem("userPassword");
+
+    if(email === "" || password === "") {
+        alert("Please fill all fields");
+        return;
+    }
+
+    // Match encrypted password
+    if(email === storedEmail && btoa(password) === storedPassword) {
+
+        // Remember Me logic
+        if(document.getElementById("rememberMe").checked) {
+            localStorage.setItem("rememberedEmail", email);
+        } else {
+            localStorage.removeItem("rememberedEmail");
+        }
+
+        alert("Login Successful!");
+        window.location.href = "dashboard.html";
+
+    } else {
+        alert("Invalid Email or Password");
+    }
+}
+
+</script>
+
+</body>
+</html>

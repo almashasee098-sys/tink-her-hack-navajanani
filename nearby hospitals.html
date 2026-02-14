@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nearby Hospitals - Navajanani</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg,#c8f7dc,#e6fff2);
+    text-align: center;
+}
+
+h1 {
+    color: #2e8b57;
+    margin-top: 20px;
+    letter-spacing: 2px;
+    animation: fadeIn 1.2s ease-in-out;
+}
+
+.container {
+    width: 95%;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.controls {
+    margin: 20px 0;
+}
+
+input {
+    padding: 10px;
+    width: 60%;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+}
+
+button {
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: none;
+    margin: 5px;
+    cursor: pointer;
+    background: #2e8b57;
+    color: white;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+.hospital-card {
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 20px;
+    margin: 15px auto;
+    width: 90%;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transition: 0.3s;
+    animation: slideUp 1s ease;
+}
+
+.hospital-card:hover {
+    transform: translateY(-5px);
+}
+
+.map-container {
+    margin-top: 20px;
+}
+
+iframe {
+    width: 90%;
+    height: 300px;
+    border-radius: 20px;
+    border: none;
+}
+
+.emergency-panel {
+    background: #ff4d4d;
+    color: white;
+    padding: 10px;
+    border-radius: 20px;
+    margin: 15px auto;
+    width: 80%;
+    font-weight: bold;
+    animation: pulse 2s infinite;
+}
+
+@keyframes fadeIn {
+    from {opacity:0;}
+    to {opacity:1;}
+}
+
+@keyframes slideUp {
+    from {transform:translateY(20px);opacity:0;}
+    to {transform:translateY(0);opacity:1;}
+}
+
+@keyframes pulse {
+    0% {transform: scale(1);}
+    50% {transform: scale(1.05);}
+    100% {transform: scale(1);}
+}
+</style>
+</head>
+
+<body>
+
+<h1>🏥 Nearby Hospitals</h1>
+
+<div class="emergency-panel">
+🚑 Emergency? Call 108 Immediately!
+</div>
+
+<div class="container">
+
+<div class="controls">
+    <input type="text" id="searchInput" placeholder="Search hospital..." onkeyup="searchHospital()">
+    <button onclick="getLocation()">Detect My Location</button>
+</div>
+
+<div id="hospitalList"></div>
+
+<div class="map-container">
+    <iframe id="mapFrame"
+        src="https://www.google.com/maps?q=hospital&output=embed">
+    </iframe>
+</div>
+
+</div>
+
+<script>
+
+let hospitals = [
+    {name:"City Care Hospital", lat:17.3850, lng:78.4867, phone:"9876543210", rating:"⭐⭐⭐⭐"},
+    {name:"Green Valley Medical Center", lat:17.4000, lng:78.4900, phone:"9123456780", rating:"⭐⭐⭐⭐⭐"}
+];
+
+let userLat = null;
+let userLng = null;
+
+function displayHospitals() {
+    let container = document.getElementById("hospitalList");
+    container.innerHTML = "";
+
+    hospitals.forEach(hospital => {
+        let distance = calculateDistance(userLat, userLng, hospital.lat, hospital.lng);
+        container.innerHTML += `
+            <div class="hospital-card">
+                <h3>${hospital.name}</h3>
+                <p>⭐ Rating: ${hospital.rating}</p>
+                <p>📍 Distance: ${distance ? distance.toFixed(2)+" km" : "Detect location"}</p>
+                <button onclick="callHospital('${hospital.phone}')">Call</button>
+                <button onclick="openMap('${hospital.name}')">View Map</button>
+                <button onclick="saveFavorite('${hospital.name}')">Save</button>
+            </div>
+        `;
+    });
+}
+
+function searchHospital() {
+    let input = document.getElementById("searchInput").value.toLowerCase();
+    let cards = document.getElementsByClassName("hospital-card");
+
+    for (let i = 0; i < cards.length; i++) {
+        if (cards[i].innerText.toLowerCase().includes(input)) {
+            cards[i].style.display = "";
+        } else {
+            cards[i].style.display = "none";
+        }
+    }
+}
+
+function callHospital(number) {
+    window.location.href = "tel:" + number;
+}
+
+function openMap(name) {
+    document.getElementById("mapFrame").src =
+        "https://www.google.com/maps?q=" + name + "&output=embed";
+}
+
+function saveFavorite(name) {
+    localStorage.setItem("favoriteHospital", name);
+    alert(name + " saved to favorites!");
+}
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+            userLat = position.coords.latitude;
+            userLng = position.coords.longitude;
+            displayHospitals();
+        });
+    } else {
+        alert("Geolocation not supported.");
+    }
+}
+
+function calculateDistance(lat1, lon1, lat2, lon2) {
+    if (!lat1 || !lon1) return null;
+    let R = 6371;
+    let dLat = (lat2 - lat1) * Math.PI / 180;
+    let dLon = (lon2 - lon1) * Math.PI / 180;
+    let a =
+        Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(lat1*Math.PI/180) * Math.cos(lat2*Math.PI/180) *
+        Math.sin(dLon/2) * Math.sin(dLon/2);
+    let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return R * c;
+}
+
+displayHospitals();
+
+</script>
+
+</body>
+</html>

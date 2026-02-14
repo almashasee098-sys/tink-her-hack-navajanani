@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Workout Tips</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Workout Tips</h1>
+
+<h3>Select Workout Type:</h3>
+
+<select id="type" onchange="showTips()">
+    <option value="">--Select--</option>
+    <option value="cardio">Cardio</option>
+    <option value="strength">Strength</option>
+    <option value="yoga">Yoga</option>
+</select>
+
+<p id="tips"></p>
+
+<h3>Exercise Timer (30 seconds)</h3>
+<p id="timer">30</p>
+<button onclick="startTimer()">Start Timer</button>
+
+<br><br>
+<a href="exercise.html"><button>Back</button></a>
+
+<script>
+function showTips() {
+    let type = document.getElementById("type").value;
+    let tipsText = "";
+
+    if (type === "cardio") {
+        tipsText = "Start with brisk walking, maintain steady breathing, stay hydrated.";
+    } 
+    else if (type === "strength") {
+        tipsText = "Focus on form, start with light weights, rest between sets.";
+    } 
+    else if (type === "yoga") {
+        tipsText = "Control breathing, move slowly, focus on flexibility.";
+    }
+
+    document.getElementById("tips").innerHTML = tipsText;
+}
+
+function startTimer() {
+    let time = 30;
+    let countdown = setInterval(function() {
+        document.getElementById("timer").innerHTML = time;
+        time--;
+        if (time < 0) {
+            clearInterval(countdown);
+            alert("Workout Session Complete!");
+        }
+    }, 1000);
+}
+</script>
+
+</body>
+</html>
+

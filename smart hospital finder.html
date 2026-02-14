@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Hospital Finder</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Find Nearby Hospitals</h1>
+
+<button onclick="locate()">Locate Hospitals Near Me</button>
+
+<br><br>
+<a href="medical.html"><button>Back</button></a>
+
+<script>
+function locate() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            let lat = position.coords.latitude;
+            let lon = position.coords.longitude;
+
+            window.open("https://www.google.com/maps/search/hospitals/@" 
+            + lat + "," + lon + ",14z");
+        });
+    } else {
+        alert("Geolocation not supported");
+    }
+}
+</script>
+
+</body>
+</html>
+
+

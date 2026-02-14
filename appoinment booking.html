@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Book Appointment</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Book Appointment</h1>
+
+<input type="text" id="name" placeholder="Your Name"><br><br>
+<input type="date" id="date"><br><br>
+<select id="doctor">
+<option>Dr. Sharma</option>
+<option>Dr. Patel</option>
+<option>Dr. Khan</option>
+</select><br><br>
+
+<button onclick="book()">Confirm Booking</button>
+
+<h3>Booking History</h3>
+<ul id="history"></ul>
+
+<br>
+<a href="medical.html"><button>Back</button></a>
+
+<script>
+function book() {
+    let name = document.getElementById("name").value;
+    let date = document.getElementById("date").value;
+    let doctor = document.getElementById("doctor").value;
+
+    if(name === "" || date === "") {
+        alert("Fill all details");
+        return;
+    }
+
+    let bookings = JSON.parse(localStorage.getItem("appointments")) || [];
+    bookings.push(name + " - " + doctor + " - " + date);
+    localStorage.setItem("appointments", JSON.stringify(bookings));
+
+    display();
+}
+
+function display() {
+    let bookings = JSON.parse(localStorage.getItem("appointments")) || [];
+    let list = document.getElementById("history");
+    list.innerHTML = "";
+
+    bookings.forEach(function(item){
+        let li = document.createElement("li");
+        li.textContent = item;
+        list.appendChild(li);
+    });
+}
+
+display();
+</script>
+
+</body>
+</html>
+
+
