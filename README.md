@@ -74,6 +74,8 @@ List the key features of your project:
 ### For Software:
 
 #### Screenshots (Add at least 3)
+<img width="1920" height="1200" alt="Screenshot (8)" src="https://github.com/user-attachments/assets/98e5a642-4eb1-442f-97b9-6e7d1199200f" />
+
 
 ![<img width="1920" height="1040" alt="Screenshot (5)" src="https://github.com/user-attachments/assets/5f6b3963-64a3-4c32-9671-36383736dc85" />
 ](Home dashboard)
@@ -85,7 +87,7 @@ List the key features of your project:
 
 !<img width="1920" height="1054" alt="Screenshot (2)" src="https://github.com/user-attachments/assets/3e64a839-76b8-4877-ae80-ef50ebb4aa61" />
 [](medicalvault)
-*Add caption explaining what this shows*
+*
 
 #### Diagrams
 
