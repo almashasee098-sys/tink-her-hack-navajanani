@@ -75,13 +75,16 @@ List the key features of your project:
 
 #### Screenshots (Add at least 3)
 
-![Screenshot1](Add screenshot 1 here with proper name)
+![<img width="1920" height="1040" alt="Screenshot (5)" src="https://github.com/user-attachments/assets/5f6b3963-64a3-4c32-9671-36383736dc85" />
+](Home dashboard)
 *Add caption explaining what this shows*
 
-![Screenshot2](Add screenshot 2 here with proper name)
+![<img width="1904" height="1048" alt="Screenshot (6)" src="https://github.com/user-attachments/assets/d8475a16-6ad6-4ca5-aa56-3310d7719f78" />
+]Nearby hospital)
 *Add caption explaining what this shows*
 
-![Screenshot3](Add screenshot 3 here with proper name)
+!<img width="1920" height="1054" alt="Screenshot (2)" src="https://github.com/user-attachments/assets/3e64a839-76b8-4877-ae80-ef50ebb4aa61" />
+[](medicalvault)
 *Add caption explaining what this shows*
 
 #### Diagrams
@@ -107,9 +110,9 @@ Home Hub: Your central dashboard to navigate every aspect of your wellness.
 3. Holistic Wellness Modules
 Mind Matters: Track your mood and find daily inspiration with the Mental Health suite.
 
-Fuel Your Body: Stay nourished and hydrated with custom meal and water plans.
+3.1Fuel Your Body: Stay nourished and hydrated with custom meal and water plans.
 
-Rest & Recharge: Log your rest and dive deep into your sleep patterns.
+3.2Rest & Recharge: Log your rest and dive deep into your sleep patterns.
 
 Active Mama: Follow expert workout tips and watch your physical progress grow.
 
@@ -144,15 +147,6 @@ If you used AI tools during development, document them here for transparency:
 
 **Tool Used:** [e.g., GitHub Copilot, v0.dev, Cursor, ChatGPT]
 
-**Purpose:** [What you used it for]
-- Example: "Generated boilerplate React components"
-- Example: "Debugging assistance for async functions"
-- Example: "Code review and optimization suggestions"
-
-**Key Prompts Used:**
-- "Create a REST API endpoint for user authentication"
-- "Debug this async function that's causing race conditions"
-- "Optimize this database query for better performance"
 
 
 
