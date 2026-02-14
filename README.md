@@ -156,7 +156,7 @@ If you used AI tools during development, document them here for transparency:
 - "Debug this async function that's causing race conditions"
 - "Optimize this database query for better performance"
 
-**Percentage of AI-generated code:** [Approximately X%]
+
 
 **Human Contributions:**
 - Architecture design and planning
@@ -170,9 +170,9 @@ If you used AI tools during development, document them here for transparency:
 
 ## Team Contributions
 
-- [Name 1]: [Specific contributions - e.g., Frontend development, API integration, etc.]
-- [Name 2]: [Specific contributions - e.g., Backend development, Database design, etc.]
-- [Name 3]: [Specific contributions - e.g., UI/UX design, Testing, Documentation, etc.]
+- [ANUGRAHA RAJEEV]: [Specific contributions - e.g., Frontend development, API integration.]
+- [ALMAS RAHIM]: [Specific contributions - e.g., Backend development, UI/UX design,Documentation etc.]
+
 
 ---
 Made with ❤️ at TinkerHub
